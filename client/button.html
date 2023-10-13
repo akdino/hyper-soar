@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Show More Example</title>
+    <style>
+        #show-more-button {
+            background-color: #3498db;
+            color: #c9e2e2;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        #show-more-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div id="items-container">
+        <!-- Existing items here -->
+    </div>
+    <button id="show-more-button"> SHOW </button>
+
+    <script>
+        const itemsContainer = document.getElementById('items-container');
+        const showMoreButton = document.getElementById('show-more-button');
+        let page = 1; // Initialize the page number
+
+        showMoreButton.addEventListener('click', () => {
+            fetch('package.json') 
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('File not found or could not be read');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    
+                    console.log(data.name); 
+                    console.log(data.scripts.dev); 
+                })
+                .catch(error => {
+                    console.error('Error reading "package.json" file:', error);
+                });
+        });
+    </script>
+</body>
+</html>
